@@ -3,6 +3,8 @@
   "description": "A GPU profile switcher designed to work with PRIME (prime-select)",
   "name": "PRIME GPU Profile Selector",
   "shell-version": [
+    "41",
+    "42",
     "43",
     "44"
   ],

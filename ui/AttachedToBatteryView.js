@@ -15,20 +15,19 @@ const {Utility} = Me.imports.lib;
 
 const ICON_SIZE = 6;
 
-
 const AttachedToBatteryToggle = GObject.registerClass(
 class AttachedToBatteryToggle extends QuickSettings.QuickMenuToggle {
-    constructor(all_settings) {
+    constructor() {
         super();
-        this.all_settings = all_settings;
     }
 
     _init() {
+        const initial = Utility.getCurrentProfile();
         super._init({
-            label: Utility.capitalizeFirstLetter(Utility.getCurrentProfile()),
-            gicon : Gio.icon_new_for_string(Me.dir.get_path() + Utility.EXTENSION_ICON_FILE_NAME),
+            label: Utility.capitalizeFirstLetter(initial),
+            gicon: Utility.getIconForProfile(initial),
             title: "GPU",
-	    subtitle: Utility.capitalizeFirstLetter(Utility.getCurrentProfile()),
+	    subtitle: Utility.capitalizeFirstLetter(initial),
             toggleMode: true,
         });
         
@@ -40,18 +39,21 @@ class AttachedToBatteryToggle extends QuickSettings.QuickMenuToggle {
         // You may also add sections of items to the menu
         this._itemsSection = new PopupMenu.PopupMenuSection();
         this._itemsSection.addAction('Nvidia', () => {
-            Utility.switchNvidia(this.all_settings);
-            super.title = 'Nvidia'
+            Utility.switchNvidia();
+            super.title = 'Nvidia';
+            super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
             this.menu.setHeader('selection-mode-symbolic', 'Nvidia (Reboot needed)', 'Choose a GPU mode');
         });
         this._itemsSection.addAction('Offload', () => {
-            Utility.switchHybrid(this.all_settings);
-            super.title = 'Offload'
+            Utility.switchHybrid();
+            super.title = 'Offload';
+            super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
             this.menu.setHeader('selection-mode-symbolic', 'Offload (Reboot needed)', 'Choose a GPU mode');
         });
         this._itemsSection.addAction('Intel', () => {
             Utility.switchIntegrated();
-            super.title = 'Intel'
+            super.title = 'Intel';
+            super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
             this.menu.setHeader('selection-mode-symbolic', 'Intel (Reboot needed)', 'Choose a GPU mode');
         });
         this.menu.addMenuItem(this._itemsSection);
@@ -69,7 +71,7 @@ class AttachedToBatteryToggle extends QuickSettings.QuickMenuToggle {
 
 const AttachedToBatteryView = GObject.registerClass(
 class AttachedToBatteryView extends QuickSettings.SystemIndicator {
-    _init(all_settings) {
+    _init() {
         super._init();
         // Create the icon for the indicator
         this._indicator = this._addIndicator();
@@ -78,7 +80,7 @@ class AttachedToBatteryView extends QuickSettings.SystemIndicator {
         
         // Create the toggle and associate it with the indicator, being sure to
         // destroy it along with the indicator
-        this.quickSettingsItems.push(new AttachedToBatteryToggle(all_settings));
+        this.quickSettingsItems.push(new AttachedToBatteryToggle());
         
         // Add the indicator to the panel and the toggle to the menu
         QuickSettingsMenu._indicators.add_child(this);
@@ -92,8 +94,8 @@ class AttachedToBatteryView extends QuickSettings.SystemIndicator {
     }
 });
 
-function getAttachedToBatteryView(all_settings) {
-    return new AttachedToBatteryView(all_settings);
+function getAttachedToBatteryView() {
+    return new AttachedToBatteryView();
 }
 
 

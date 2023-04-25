@@ -3,7 +3,7 @@
 **based on this extension: <https://github.com/LorenzoMorelli/GPU_profile_selector>**
 
 ## Description
-A GNOME Shell (version 43 and above) extension which provides a simple way to switch between GPU profiles on Nvidia Optimus systems (i.e laptops with Intel + Nvidia) in a few clicks.
+A GNOME Shell (version 41 and above) extension which provides a simple way to switch between GPU profiles on Nvidia Optimus systems (i.e laptops with Intel + Nvidia) in a few clicks.
 
 Designed to work with `suse-prime` and similar NVIDIA PRIME implementations, i.e. anything that provides the `prime-select` commands.
 

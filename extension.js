@@ -15,15 +15,13 @@ const {Utility} = Me.imports.lib;
 
 class Extension {
     enable() {
-        const all_settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.GPU_profile_selector');
-        
-        // if there is no battery, there is no power management panel, so the extension moves to TopBar
-        if (Utility.isBatteryPlugged() && all_settings.get_boolean("force-topbar-view") !== true) {
+        // if there is no battery, there is no power management panel, so the extension moves to TopBar. If the gnome version is too old to have a quicksettings panel, we also move to the top bar.
+        if (Utility.isBatteryPlugged() && imports.ui.quickSettings != undefined) {
             this.extensionViewTopbar = false
-            this.extensionView = AttachedToBatteryView.getAttachedToBatteryView(all_settings);
+            this.extensionView = AttachedToBatteryView.getAttachedToBatteryView();
         } else {
             this.extensionViewTopbar = true
-            this.extensionView = new TopBarView.TopBarView(all_settings);
+            this.extensionView = new TopBarView.TopBarView();
             Main.panel.addToStatusArea("GPU_SELECTOR", this.extensionView, 1);
             this.extensionView.enable();
         }
@@ -32,7 +30,6 @@ class Extension {
     disable() {
         this.extensionView.disable();
         // also topbar popup must be destroyed
-        const all_settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.GPU_profile_selector');
         if (this.extensionViewTopbar !== null && this.extensionViewTopbar) {
             this.extensionViewTopbar = null
             this.extensionView.destroy();
