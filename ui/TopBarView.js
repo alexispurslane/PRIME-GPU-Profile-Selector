@@ -86,30 +86,35 @@ class TopBarView extends PanelMenu.Button {
 
         // check GPU profile
         const gpu_profile = Utility.getCurrentProfile();
-        if (gpu_profile === Utility.GPU_PROFILE_INTEGRATED) {
-            this.hybrid_menu_item.remove_child(this.icon_selector);
-            this.nvidia_menu_item.remove_child(this.icon_selector);
-            this.integrated_menu_item.add_child(this.icon_selector);
-            this.icon_top = new St.Icon({
-                gicon : Gio.icon_new_for_string(Me.dir.get_path() + Utility.ICON_INTEL_FILE_NAME),
-                style_class: 'system-status-icon',
-            });
-        } else if(gpu_profile === Utility.GPU_PROFILE_HYBRID) {
-            this.integrated_menu_item.remove_child(this.icon_selector);
-            this.nvidia_menu_item.remove_child(this.icon_selector);
-            this.hybrid_menu_item.add_child(this.icon_selector);
-            this.icon_top = new St.Icon({
-                gicon : Gio.icon_new_for_string(Me.dir.get_path() + Utility.ICON_HYBRID_FILE_NAME),
-                style_class: 'system-status-icon',
-            });
-        } else {
-            this.integrated_menu_item.remove_child(this.icon_selector);
-            this.hybrid_menu_item.remove_child(this.icon_selector);
-            this.nvidia_menu_item.add_child(this.icon_selector);
-            this.icon_top = new St.Icon({
-                gicon : Gio.icon_new_for_string(Me.dir.get_path() + Utility.ICON_NVIDIA_FILE_NAME),
-                style_class: 'system-status-icon',
-            });
+        switch(gpu_profile){
+            case Utility.GPU_PROFILE_INTEGRATED:
+                this.hybrid_menu_item.remove_child(this.icon_selector);
+                this.nvidia_menu_item.remove_child(this.icon_selector);
+                this.integrated_menu_item.add_child(this.icon_selector);
+                this.icon_top = new St.Icon({
+                    gicon : Gio.icon_new_for_string(Me.dir.get_path() + Utility.ICON_INTEL_FILE_NAME),
+                    style_class: 'system-status-icon',
+                });
+            break;
+            case Utility.GPU_PROFILE_HYBRID:
+                this.integrated_menu_item.remove_child(this.icon_selector);
+                this.nvidia_menu_item.remove_child(this.icon_selector);
+                this.hybrid_menu_item.add_child(this.icon_selector);
+                this.icon_top = new St.Icon({
+                    gicon : Gio.icon_new_for_string(Me.dir.get_path() + Utility.ICON_HYBRID_FILE_NAME),
+                    style_class: 'system-status-icon',
+                });
+            break;
+            default:
+                this.integrated_menu_item.remove_child(this.icon_selector);
+                this.hybrid_menu_item.remove_child(this.icon_selector);
+                this.nvidia_menu_item.add_child(this.icon_selector);
+                this.icon_top = new St.Icon({
+                    gicon : Gio.icon_new_for_string(Me.dir.get_path() + Utility.ICON_NVIDIA_FILE_NAME),
+                    style_class: 'system-status-icon',
+                });
+            break;
+            
         }
         this.add_child(this.icon_top);
     }
