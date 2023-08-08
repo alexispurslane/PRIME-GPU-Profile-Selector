@@ -42,19 +42,19 @@ class AttachedToBatteryToggle extends QuickSettings.QuickMenuToggle {
             Utility.switchNvidia();
             super.subtitle = 'Nvidia';
             super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
-            this.menu.setHeader('selection-mode-symbolic', 'Nvidia (Reboot needed)', 'Choose a GPU mode');
+            this.menu.setHeader('selection-mode-symbolic', 'Nvidia (Relog needed)', 'Choose a GPU mode');
         });
         this._itemsSection.addAction('Offload', () => {
             Utility.switchHybrid();
             super.subtitle = 'Offload';
             super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
-            this.menu.setHeader('selection-mode-symbolic', 'Offload (Reboot needed)', 'Choose a GPU mode');
+            this.menu.setHeader('selection-mode-symbolic', 'Offload (Relog needed)', 'Choose a GPU mode');
         });
         this._itemsSection.addAction('Intel', () => {
             Utility.switchIntegrated();
             super.subtitle = 'Intel';
             super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
-            this.menu.setHeader('selection-mode-symbolic', 'Intel (Reboot needed)', 'Choose a GPU mode');
+            this.menu.setHeader('selection-mode-symbolic', 'Intel (Relog needed)', 'Choose a GPU mode');
         });
         this.menu.addMenuItem(this._itemsSection);
 
