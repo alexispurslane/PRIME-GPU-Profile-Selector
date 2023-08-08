@@ -25,7 +25,7 @@ Designed to work with `suse-prime` and similar NVIDIA PRIME implementations, i.e
 - Install all the [dependencies](#Dependencies)
 - Clone this repo with:
   ```
-  git clone https://github.com/alexispurslane/PRIME-GPU-Profile-Selector.git ~/.local/share/gnome-shell/extensions/PRIME_Helper@z-ray.de
+  git clone git@github.com:Z-Ray-Entertainment/PRIME-Helper.git ~/.local/share/gnome-shell/extensions/PRIME_Helper@z-ray.de
   ```
 ## Debuging and packaging
 
