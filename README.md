@@ -1,6 +1,6 @@
-# PRIME GPU Profile Selector GNOME Shell Extension
+# PRIME Helper GNOME Shell Extension
 
-**based on this extension: <https://github.com/LorenzoMorelli/GPU_profile_selector>**
+**based on this extension: <https://github.com/alexispurslane/PRIME-GPU-Profile-Selector>**
 
 ## Description
 A GNOME Shell (version 41 and above) extension which provides a simple way to
@@ -25,7 +25,7 @@ Designed to work with `suse-prime` and similar NVIDIA PRIME implementations, i.e
 - Install all the [dependencies](#Dependencies)
 - Clone this repo with:
   ```
-  git clone https://github.com/alexispurslane/PRIME-GPU-Profile-Selector.git ~/.local/share/gnome-shell/extensions/PRIME_GPU_profile_selector@alexispurslane.github.com
+  git clone https://github.com/alexispurslane/PRIME-GPU-Profile-Selector.git ~/.local/share/gnome-shell/extensions/PRIME_Helper@z-ray.de
   ```
 ## Debuging and packaging
 
@@ -41,7 +41,7 @@ dbus-run-session -- gnome-shell --nested --wayland
 
 ### Packaging the extension source for gnome extension website
 ```
-gnome-extensions pack PRIME_GPU_profile_selector@alexispurslane.github.com \
+gnome-extensions pack PRIME_Helper@z-ray.de \
 --extra-source="README.md" \
 --extra-source="LICENSE" \
 --extra-source="img" \
