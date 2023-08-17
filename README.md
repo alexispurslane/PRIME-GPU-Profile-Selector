@@ -41,7 +41,7 @@ dbus-run-session -- gnome-shell --nested --wayland
 
 ### Packaging the extension source for gnome extension website
 ```
-gnome-extensions pack PRIME_Helper@z-ray.de \
+gnome-extensions pack \
 --extra-source="README.md" \
 --extra-source="LICENSE" \
 --extra-source="img" \
