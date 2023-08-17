@@ -10,8 +10,7 @@ const Util = imports.misc.util;
 const Clutter = imports.gi.Clutter;
 
 const {TopBarView, AttachedToBatteryView} = Me.imports.ui;
-const {Utility} = Me.imports.lib;
-
+const {Utility, PrimeMenu} = Me.imports.lib;
 
 class Extension {
     enable() {
