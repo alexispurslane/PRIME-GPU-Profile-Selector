@@ -24,6 +24,8 @@ class Extension {
             Main.panel.addToStatusArea("GPU_SELECTOR", this.extensionView, 1);
             this.extensionView.enable();
         }
+
+        _enable_app_menu();
     }
 
     disable() {
