@@ -10,8 +10,7 @@ const Util = imports.misc.util;
 const Clutter = imports.gi.Clutter;
 
 const {TopBarView, AttachedToBatteryView} = Me.imports.ui;
-const {Utility} = Me.imports.lib;
-
+const {Utility, FileManagerExtention} = Me.imports.lib;
 
 class Extension {
     enable() {
@@ -25,6 +24,20 @@ class Extension {
             Main.panel.addToStatusArea("GPU_SELECTOR", this.extensionView, 1);
             this.extensionView.enable();
         }
+
+        //Add / remove file explorer extention.
+        const gpu_profile = Utility.getCurrentProfile();
+        switch(gpu_profile){
+            //Remove file explorer extention if not in offload mode because it can't be used
+            default:
+                FileManagerExtention.remove_file_manager_extention();
+                break;
+            //Add file explorer extention only if in offload mode
+            case Utility.GPU_PROFILE_HYBRID:
+                FileManagerExtention.install_file_manager_extention();
+                break;
+        }
+
     }
 
     disable() {

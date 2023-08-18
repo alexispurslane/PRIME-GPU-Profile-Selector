@@ -9,6 +9,10 @@ switch between GPU profiles on Nvidia Optimus systems (i.e laptops with Intel
 
 Designed to work with `suse-prime` and similar NVIDIA PRIME implementations, i.e. anything that provides the `prime-select` commands.
 
+## Features
+- Switch between Intel, Nvidia and PRIME Offload mode
+- Nautilus script to run executables on nVidia GPU if running in offload mode
+
 ## Dependencies
 - `pkexec`
 - [bash](https://www.gnu.org/software/bash/)
