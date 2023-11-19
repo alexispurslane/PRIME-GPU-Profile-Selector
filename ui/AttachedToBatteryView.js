@@ -27,35 +27,67 @@ class AttachedToBatteryToggle extends QuickSettings.QuickMenuToggle {
             label: Utility.capitalizeFirstLetter(initial),
             gicon: Utility.getIconForProfile(initial),
             title: "GPU",
-	    subtitle: Utility.capitalizeFirstLetter(initial),
+            subtitle: Utility.capitalizeFirstLetter(initial),
             toggleMode: true,
         });
         
         // This function is unique to this class. It adds a nice header with an
         // icon, title and optional subtitle. It's recommended you do so for
         // consistency with other menus.
-        this.menu.setHeader('selection-mode-symbolic', Utility.capitalizeFirstLetter(Utility.getCurrentProfile()), 'Choose a GPU mode');
+        this.menu.setHeader('selection-mode-symbolic', "GPU", 'Switch current GPU');
         
         // You may also add sections of items to the menu
         this._itemsSection = new PopupMenu.PopupMenuSection();
-        this._itemsSection.addAction('Nvidia', () => {
+
+        const nvidiaIcon = Utility.getIconForProfile('nvidia')
+        let nvidiaMenuItem = new PopupMenu.PopupImageMenuItem('Nvidia', nvidiaIcon);
+        this._itemsSection.addMenuItem(nvidiaMenuItem);
+        if (initial == 'nvidia')
+            nvidiaMenuItem.setOrnament(PopupMenu.Ornament.CHECK);
+        else
+            nvidiaMenuItem.setOrnament(PopupMenu.Ornament.NONE);
+        nvidiaMenuItem.connect('activate', () => {
             Utility.switchNvidia();
+
             super.subtitle = 'Nvidia';
-            super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
-            this.menu.setHeader('selection-mode-symbolic', 'Nvidia (Relog needed)', 'Choose a GPU mode');
+            super.gicon = nvidiaIcon;
+            nvidiaMenuItem.setOrnament(PopupMenu.Ornament.CHECK);
+            intelMenuItem.setOrnament(PopupMenu.Ornament.NONE);
+            offloadMenuItem.setOrnament(PopupMenu.Ornament.NONE);
         });
-        this._itemsSection.addAction('Offload', () => {
+
+        const offloadIcon = Utility.getIconForProfile('offload');
+        let offloadMenuItem = new PopupMenu.PopupImageMenuItem('Offload', offloadIcon);
+        this._itemsSection.addMenuItem(offloadMenuItem);
+        if (initial == 'offload')
+            offloadMenuItem.setOrnament(PopupMenu.Ornament.CHECK);
+        else
+            offloadMenuItem.setOrnament(PopupMenu.Ornament.NONE);
+        offloadMenuItem.connect('activate', () => {
             Utility.switchHybrid();
             super.subtitle = 'Offload';
-            super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
-            this.menu.setHeader('selection-mode-symbolic', 'Offload (Relog needed)', 'Choose a GPU mode');
+            super.gicon = offloadIcon;
+            offloadMenuItem.setOrnament(PopupMenu.Ornament.CHECK);
+            nvidiaMenuItem.setOrnament(PopupMenu.Ornament.NONE);
+            intelMenuItem.setOrnament(PopupMenu.Ornament.NONE);
         });
-        this._itemsSection.addAction('Intel', () => {
+
+        const intelIcon = Utility.getIconForProfile('intel');
+        let intelMenuItem = new PopupMenu.PopupImageMenuItem('Intel', intelIcon);
+        this._itemsSection.addMenuItem(intelMenuItem);
+        if (initial == 'intel')
+            intelMenuItem.setOrnament(PopupMenu.Ornament.CHECK);
+        else
+            intelMenuItem.setOrnament(PopupMenu.Ornament.NONE);
+        intelMenuItem.connect('activate', () => {
             Utility.switchIntegrated();
             super.subtitle = 'Intel';
-            super.gicon = Utility.getIconForProfile(Utility.getCurrentProfile());
-            this.menu.setHeader('selection-mode-symbolic', 'Intel (Relog needed)', 'Choose a GPU mode');
+            super.gicon = intelIcon;
+            intelMenuItem.setOrnament(PopupMenu.Ornament.CHECK);
+            nvidiaMenuItem.setOrnament(PopupMenu.Ornament.NONE);
+            offloadMenuItem.setOrnament(PopupMenu.Ornament.NONE);
         });
+
         this.menu.addMenuItem(this._itemsSection);
 
         // Add an entry-point for more settings

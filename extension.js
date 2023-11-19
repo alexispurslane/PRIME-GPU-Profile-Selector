@@ -27,16 +27,16 @@ export default class PRIMEGPUProfileSelectorExtension extends Extension {
             this.extensionView.enable();
         }
 
-        //Add / remove file explorer extention.
+        //Add / remove file explorer extension.
         const gpu_profile = Utility.getCurrentProfile();
         switch(gpu_profile){
-            //Remove file explorer extention if not in offload mode because it can't be used
+            //Remove file explorer extension if not in offload mode because it can't be used
             default:
-                FileManagerExtension.remove_file_manager_extention();
+                FileManagerExtension.remove_file_manager_extension();
                 break;
-            //Add file explorer extention only if in offload mode
+            //Add file explorer extension only if in offload mode
             case Utility.GPU_PROFILE_HYBRID:
-                FileManagerExtension.install_file_manager_extention();
+                FileManagerExtension.install_file_manager_extension();
                 break;
         }
 
