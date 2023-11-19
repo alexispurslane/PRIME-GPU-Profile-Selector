@@ -1,3 +1,16 @@
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import GLib from 'gi://GLib';
+import St from 'gi://St';
+import GObject from 'gi://GObject';
+import Clutter from 'gi://Clutter';
+import Gio from 'gi://Gio';
+import * as Util from 'resource:///org/gnome/shell/misc/util.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
+import * as Utility from '../lib/Utility.js';
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+
 const QuickSettingsMenu = Main.panel.statusArea.quickSettings;
 
 const ICON_SIZE = 6;
@@ -48,7 +61,7 @@ class AttachedToBatteryToggle extends QuickSettings.QuickMenuToggle {
         // Add an entry-point for more settings
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         const settingsItem = this.menu.addAction('More Settings',
-            () => ExtensionUtils.openPrefs());
+            () => Extension.openPreferences());
             
         // Ensure the settings are unavailable when the screen is locked
         settingsItem.visible = Main.sessionMode.allowSettings;
@@ -56,7 +69,7 @@ class AttachedToBatteryToggle extends QuickSettings.QuickMenuToggle {
     }
 });
 
-const AttachedToBatteryView = GObject.registerClass(
+export const AttachedToBatteryView = GObject.registerClass(
 class AttachedToBatteryView extends QuickSettings.SystemIndicator {
     _init() {
         super._init();
@@ -70,8 +83,7 @@ class AttachedToBatteryView extends QuickSettings.SystemIndicator {
         this.quickSettingsItems.push(new AttachedToBatteryToggle());
         
         // Add the indicator to the panel and the toggle to the menu
-        QuickSettingsMenu._indicators.add_child(this);
-        QuickSettingsMenu._addItems(this.quickSettingsItems);
+        Main.panel.statusArea.quickSettings.addExternalIndicator(this);
     }
 
     disable() {
@@ -80,5 +92,3 @@ class AttachedToBatteryView extends QuickSettings.SystemIndicator {
         super.destroy();
     }
 });
-
-export default AttachedToBatteryView;

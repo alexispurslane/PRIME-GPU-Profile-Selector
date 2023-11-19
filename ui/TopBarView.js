@@ -1,6 +1,19 @@
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import GLib from 'gi://GLib';
+import St from 'gi://St';
+import GObject from 'gi://GObject';
+import Clutter from 'gi://Clutter';
+import Gio from 'gi://Gio';
+import * as Util from 'resource:///org/gnome/shell/misc/util.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
+import * as Utility from '../lib/Utility.js';
+
+
 const ICON_SIZE = 6;
 
-var TopBarView = GObject.registerClass(
+export const TopBarView = GObject.registerClass(
 class TopBarView extends PanelMenu.Button {  
     _init() {
         super._init(0);
@@ -135,4 +148,3 @@ class TopBarView extends PanelMenu.Button {
     }
 });
 
-export default TopBarView;

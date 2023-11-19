@@ -3,25 +3,26 @@ import GLib from 'gi://GLib';
 import St from 'gi://St';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
-import Gio from 'gi://GObject';
+import Gio from 'gi://Gio';
 import * as Util from 'resource:///org/gnome/shell/misc/util.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
-import TopBarView from './ui/TopBarView';
-import AttachedToBatteryView from './ui/AttachedToBatteryView';
-import * as Utility from './lib/Utility';
-import FileManagerExtension from './lib/FileManagerExtension';
+import {TopBarView} from './ui/TopBarView.js';
+import {AttachedToBatteryView} from './ui/AttachedToBatteryView.js';
+import * as Utility from './lib/Utility.js';
+import * as FileManagerExtension from './lib/FileManagerExtension.js';
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-class Extension {
+export default class PRIMEGPUProfileSelectorExtension extends Extension {
     enable() {
         // if there is no battery, there is no power management panel, so the extension moves to TopBar. If the gnome version is too old to have a quicksettings panel, we also move to the top bar.
         if (Utility.isBatteryPlugged() && QuickSettings != undefined) {
             this.extensionViewTopbar = false
-            this.extensionView = AttachedToBatteryView.getAttachedToBatteryView();
+            this.extensionView = new AttachedToBatteryView();
         } else {
             this.extensionViewTopbar = true
-            this.extensionView = new TopBarView.TopBarView();
+            this.extensionView = new TopBarView();
             Main.panel.addToStatusArea("GPU_SELECTOR", this.extensionView, 1);
             this.extensionView.enable();
         }
@@ -31,11 +32,11 @@ class Extension {
         switch(gpu_profile){
             //Remove file explorer extention if not in offload mode because it can't be used
             default:
-                FileManagerExtention.remove_file_manager_extention();
+                FileManagerExtension.remove_file_manager_extention();
                 break;
             //Add file explorer extention only if in offload mode
             case Utility.GPU_PROFILE_HYBRID:
-                FileManagerExtention.install_file_manager_extention();
+                FileManagerExtension.install_file_manager_extention();
                 break;
         }
 
@@ -50,8 +51,4 @@ class Extension {
         }
         this.extensionView = null;
     }
-}
-
-function init() {
-    return new Extension();
 }
