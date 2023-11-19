@@ -1,17 +1,4 @@
-const Main = imports.ui.main;
-const {St, GLib, GObject} = imports.gi;
-const Gio = imports.gi.Gio;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Util = imports.misc.util;
-const Clutter = imports.gi.Clutter;
-const QuickSettings = imports.ui.quickSettings;
-const Extension = ExtensionUtils.getCurrentExtension();
-const QuickSettingsMenu = imports.ui.main.panel.statusArea.quickSettings;
-
-const {Utility} = Me.imports.lib;
+const QuickSettingsMenu = Main.panel.statusArea.quickSettings;
 
 const ICON_SIZE = 6;
 
@@ -94,8 +81,4 @@ class AttachedToBatteryView extends QuickSettings.SystemIndicator {
     }
 });
 
-function getAttachedToBatteryView() {
-    return new AttachedToBatteryView();
-}
-
-
+export default AttachedToBatteryView;

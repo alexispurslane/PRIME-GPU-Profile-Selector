@@ -1,21 +1,22 @@
-const Main = imports.ui.main;
-const {St, GLib} = imports.gi;
-const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Util = imports.misc.util;
-const Clutter = imports.gi.Clutter;
-
-const {TopBarView, AttachedToBatteryView} = Me.imports.ui;
-const {Utility, FileManagerExtention} = Me.imports.lib;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import GLib from 'gi://GLib';
+import St from 'gi://St';
+import GObject from 'gi://GObject';
+import Clutter from 'gi://Clutter';
+import Gio from 'gi://GObject';
+import * as Util from 'resource:///org/gnome/shell/misc/util.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
+import TopBarView from './ui/TopBarView';
+import AttachedToBatteryView from './ui/AttachedToBatteryView';
+import * as Utility from './lib/Utility';
+import FileManagerExtension from './lib/FileManagerExtension';
 
 class Extension {
     enable() {
         // if there is no battery, there is no power management panel, so the extension moves to TopBar. If the gnome version is too old to have a quicksettings panel, we also move to the top bar.
-        if (Utility.isBatteryPlugged() && imports.ui.quickSettings != undefined) {
+        if (Utility.isBatteryPlugged() && QuickSettings != undefined) {
             this.extensionViewTopbar = false
             this.extensionView = AttachedToBatteryView.getAttachedToBatteryView();
         } else {

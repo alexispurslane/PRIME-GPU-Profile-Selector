@@ -1,16 +1,3 @@
-const Main = imports.ui.main;
-const {St, GLib} = imports.gi;
-const GObject = imports.gi.GObject;
-const Gio = imports.gi.Gio;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Util = imports.misc.util;
-const Clutter = imports.gi.Clutter;
-
-const {Utility} = Me.imports.lib;
-
 const ICON_SIZE = 6;
 
 var TopBarView = GObject.registerClass(
@@ -147,3 +134,5 @@ class TopBarView extends PanelMenu.Button {
         this.icon_selector = null;
     }
 });
+
+export default TopBarView;
